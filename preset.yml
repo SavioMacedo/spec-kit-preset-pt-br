@@ -1,0 +1,58 @@
+schema_version: "1.0"
+
+preset:
+  id: "pt-br"
+  name: "Português Brasileiro"
+  version: "1.1.0"
+  description: "Traduz todos os artefatos do workflow Spec-Driven Development para Português Brasileiro (pt-BR). Sobrescreve os templates de conteúdo (spec, plan, tasks, checklist, constitution e agent-file) mantendo todos os commands core intactos para máxima compatibilidade."
+  author: "SavioMacedo"
+  repository: "https://github.com/SavioMacedo/spec-kit-preset-pt-br"
+  license: "MIT"
+
+requires:
+  speckit_version: ">=0.1.0"
+
+provides:
+  templates:
+    - type: "template"
+      name: "constitution-template"
+      file: "templates/constitution-template.md"
+      description: "Template de constituição do projeto em pt-BR"
+      replaces: "constitution-template"
+
+    - type: "template"
+      name: "spec-template"
+      file: "templates/spec-template.md"
+      description: "Template de especificação de feature em pt-BR"
+      replaces: "spec-template"
+
+    - type: "template"
+      name: "plan-template"
+      file: "templates/plan-template.md"
+      description: "Template de plano de implementação em pt-BR"
+      replaces: "plan-template"
+
+    - type: "template"
+      name: "tasks-template"
+      file: "templates/tasks-template.md"
+      description: "Template de lista de tarefas em pt-BR"
+      replaces: "tasks-template"
+
+    - type: "template"
+      name: "checklist-template"
+      file: "templates/checklist-template.md"
+      description: "Template de checklist de qualidade em pt-BR"
+      replaces: "checklist-template"
+
+    - type: "template"
+      name: "agent-file-template"
+      file: "templates/agent-file-template.md"
+      description: "Template de diretrizes de desenvolvimento do agente em pt-BR"
+      replaces: "agent-file-template"
+
+tags:
+  - "language"
+  - "portuguese"
+  - "pt-br"
+  - "localization"
+  - "brazilian-portuguese"

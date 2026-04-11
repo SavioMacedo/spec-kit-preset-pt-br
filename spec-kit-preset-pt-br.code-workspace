@@ -1,0 +1,29 @@
+{
+  "folders": [
+    {
+      "name": "spec-kit-preset-pt-br",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "editor.rulers": [100],
+    "editor.trimAutoWhitespace": true,
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[markdown]": {
+      "editor.wordWrap": "on",
+      "editor.rulers": []
+    },
+    "[yaml]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "esbenp.prettier-vscode",
+      "redhat.vscode-yaml",
+      "davidanson.vscode-markdownlint"
+    ]
+  }
+}
