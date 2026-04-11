@@ -1,10 +1,10 @@
 ---
-description: Create or update the feature specification from a natural language feature description.
-handoffs: 
-  - label: Build Technical Plan
+description: Criar ou atualizar a especificação de feature a partir de uma descrição em linguagem natural.
+handoffs:
+  - label: Criar Plano Técnico
     agent: speckit.plan
     prompt: Create a plan for the spec. I am building with...
-  - label: Clarify Spec Requirements
+  - label: Clarificar Requisitos da Spec
     agent: speckit.clarify
     prompt: Clarify specification requirements
     send: true
@@ -142,20 +142,20 @@ Given that feature description, do this:
 
       ```markdown
       # Specification Quality Checklist: [FEATURE NAME]
-      
+
       **Purpose**: Validate specification completeness and quality before proceeding to planning
       **Created**: [DATE]
       **Feature**: [Link to spec.md]
-      
+
       ## Content Quality
-      
+
       - [ ] No implementation details (languages, frameworks, APIs)
       - [ ] Focused on user value and business needs
       - [ ] Written for non-technical stakeholders
       - [ ] All mandatory sections completed
-      
+
       ## Requirement Completeness
-      
+
       - [ ] No [NEEDS CLARIFICATION] markers remain
       - [ ] Requirements are testable and unambiguous
       - [ ] Success criteria are measurable
@@ -164,16 +164,16 @@ Given that feature description, do this:
       - [ ] Edge cases are identified
       - [ ] Scope is clearly bounded
       - [ ] Dependencies and assumptions identified
-      
+
       ## Feature Readiness
-      
+
       - [ ] All functional requirements have clear acceptance criteria
       - [ ] User scenarios cover primary flows
       - [ ] Feature meets measurable outcomes defined in Success Criteria
       - [ ] No implementation details leak into specification
-      
+
       ## Notes
-      
+
       - Items marked incomplete require spec updates before `/speckit.clarify` or `/speckit.plan`
       ```
 
@@ -183,7 +183,7 @@ Given that feature description, do this:
 
    c. **Handle Validation Results**:
 
-      - **If all items pass**: Mark checklist complete and proceed to step 7
+      - **If all items pass**: Mark checklist complete and proceed to step 8
 
       - **If items fail (excluding [NEEDS CLARIFICATION])**:
         1. List the failing items and specific issues
@@ -194,37 +194,46 @@ Given that feature description, do this:
       - **If [NEEDS CLARIFICATION] markers remain**:
         1. Extract all [NEEDS CLARIFICATION: ...] markers from the spec
         2. **LIMIT CHECK**: If more than 3 markers exist, keep only the 3 most critical (by scope/security/UX impact) and make informed guesses for the rest
-        3. For each clarification needed (max 3), present options to user in this format:
-
-           ```markdown
-           ## Question [N]: [Topic]
-           
-           **Context**: [Quote relevant spec section]
-           
-           **What we need to know**: [Specific question from NEEDS CLARIFICATION marker]
-           
-           **Suggested Answers**:
-           
-           | Option | Answer | Implications |
-           |--------|--------|--------------|
-           | A      | [First suggested answer] | [What this means for the feature] |
-           | B      | [Second suggested answer] | [What this means for the feature] |
-           | C      | [Third suggested answer] | [What this means for the feature] |
-           | Custom | Provide your own answer | [Explain how to provide custom input] |
-           
-           **Your choice**: _[Wait for user response]_
-           ```
-
-        4. **CRITICAL - Table Formatting**: Ensure markdown tables are properly formatted:
-           - Use consistent spacing with pipes aligned
-           - Each cell should have spaces around content: `| Content |` not `|Content|`
-           - Header separator must have at least 3 dashes: `|--------|`
-           - Test that the table renders correctly in markdown preview
-        5. Number questions sequentially (Q1, Q2, Q3 - max 3 total)
-        6. Present all questions together before waiting for responses
-        7. Wait for user to respond with their choices for all questions (e.g., "Q1: A, Q2: Custom - [details], Q3: B")
-        8. Update the spec by replacing each [NEEDS CLARIFICATION] marker with the user's selected or provided answer
-        9. Re-run validation after all clarifications are resolved
+        3. Use the `vscode_askQuestions` tool to present all clarification questions to the user simultaneously. Build the `questions` array as follows:
+           - For each clarification (max 3):
+             - `header`: `"Q[N]: [Topic]"` — short identifier for the question
+             - `question`: A concise sentence combining the context (quote relevant spec section) and what we need to know (from the NEEDS CLARIFICATION marker)
+             - `options`: Array of suggested answers. Each option must have:
+               - `label`: Short answer text (e.g., "OAuth2/SSO", "Email/Password")
+               - `description`: Implications for the feature (e.g., "Best for enterprise apps, requires identity provider setup")
+               - Mark the most suitable option with `recommended: true` based on best practices, risk reduction, and alignment with project goals
+             - `allowFreeformInput`: `true` — so user can provide a custom answer beyond the options
+           - Example `vscode_askQuestions` call:
+             ```json
+             {
+               "questions": [
+                 {
+                   "header": "Q1: Authentication Method",
+                   "question": "Spec mentions 'secure login' without specifics. Which authentication approach should be used?",
+                   "options": [
+                     {"label": "OAuth2/SSO", "description": "Enterprise-grade, requires identity provider. Best for B2B apps.", "recommended": true},
+                     {"label": "Email/Password + MFA", "description": "Traditional approach with multi-factor. Simpler setup."},
+                     {"label": "API Keys", "description": "Service-to-service only. Not suitable for end users."}
+                   ],
+                   "allowFreeformInput": true
+                 },
+                 {
+                   "header": "Q2: Data Retention",
+                   "question": "Spec requires 'data storage' but does not specify retention period. How long should user data be retained?",
+                   "options": [
+                     {"label": "90 days", "description": "Standard for most web apps. Reduces storage costs."},
+                     {"label": "1 year", "description": "Good for analytics and audit trails.", "recommended": true},
+                     {"label": "Indefinite", "description": "Never deleted. May have GDPR/LGPD implications."}
+                   ],
+                   "allowFreeformInput": true
+                 }
+               ]
+             }
+             ```
+        4. Process the user's responses from `vscode_askQuestions`:
+           - For each question, take the selected option label or freeform text as the answer
+           - Update the spec by replacing each [NEEDS CLARIFICATION] marker with the user's answer
+        5. Re-run validation after all clarifications are resolved
 
    d. **Update Checklist**: After each validation iteration, update the checklist file with current pass/fail status
 

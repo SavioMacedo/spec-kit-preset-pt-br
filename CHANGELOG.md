@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] — 2026-04-11
+
+### Changed
+
+- **preset.yml** — reestruturado para conformidade com o padrão oficial de presets do Spec Kit:
+  - `description` reduzida para ≤200 caracteres.
+  - Commands movidos para `provides.templates` (lista unificada com `type: "command"`).
+  - Nomes dos commands em dot notation: `speckit.specify`, `speckit.clarify`.
+  - Caminhos dos commands atualizados para `commands/speckit.specify.md` e `commands/speckit.clarify.md`.
+- **Estrutura de diretórios** — `templates/commands/` movido para `commands/` na raiz (padrão oficial).
+- **Filenames dos commands** — renomeados de `specify.md`/`clarify.md` para `speckit.specify.md`/`speckit.clarify.md`.
+- Versão bumped para 1.3.0.
+
+## [1.2.0] — 2026-04-11
+
+### Added
+
+- `commands/speckit.specify.md` — override do command `/speckit.specify` que usa
+  `vscode_askQuestions` para todas as perguntas de clarificação ao usuário (substituindo
+  as tabelas markdown inline do upstream).
+- `commands/speckit.clarify.md` — override do command `/speckit.clarify` que usa
+  `vscode_askQuestions` para o loop sequencial de perguntas (até 5).
+
+### Changed
+
+- `preset.yml` — seção `commands` adicionada com os 2 overrides; versão bumped para 1.2.0.
+- Frontmatter dos commands traduzido para PT-BR (description, handoff labels).
+
 ## [1.1.0] — 2026-04-11
 
 ### Added

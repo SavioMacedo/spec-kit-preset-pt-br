@@ -1,7 +1,7 @@
 ---
-description: Identify underspecified areas in the current feature spec by asking up to 5 highly targeted clarification questions and encoding answers back into the spec.
-handoffs: 
-  - label: Build Technical Plan
+description: Identificar áreas subespecificadas na spec da feature ativa, fazendo até 5 perguntas de clarificação direcionadas e codificando as respostas de volta na spec.
+handoffs:
+  - label: Criar Plano Técnico
     agent: speckit.plan
     prompt: Create a plan for the spec. I am building with...
 scripts:
@@ -133,38 +133,51 @@ Execution steps:
     - Favor clarifications that reduce downstream rework risk or prevent misaligned acceptance tests.
     - If more than 5 categories remain unresolved, select the top 5 by (Impact * Uncertainty) heuristic.
 
-4. Sequential questioning loop (interactive):
-    - Present EXACTLY ONE question at a time.
+4. Sequential questioning loop (interactive) — use the `vscode_askQuestions` tool for EVERY question:
+    - Present EXACTLY ONE question at a time via `vscode_askQuestions`.
     - For multiple‑choice questions:
        - **Analyze all options** and determine the **most suitable option** based on:
           - Best practices for the project type
           - Common patterns in similar implementations
           - Risk reduction (security, performance, maintainability)
           - Alignment with any explicit project goals or constraints visible in the spec
-       - Present your **recommended option prominently** at the top with clear reasoning (1-2 sentences explaining why this is the best choice).
-       - Format as: `**Recommended:** Option [X] - <reasoning>`
-       - Then render all options as a Markdown table:
-
-       | Option | Description |
-       |--------|-------------|
-       | A | <Option A description> |
-       | B | <Option B description> |
-       | C | <Option C description> (add D/E as needed up to 5) |
-       | Short | Provide a different short answer (<=5 words) (Include only if free-form alternative is appropriate) |
-
-       - After the table, add: `You can reply with the option letter (e.g., "A"), accept the recommendation by saying "yes" or "recommended", or provide your own short answer.`
+       - Call `vscode_askQuestions` with a single question:
+         - `header`: Short topic identifier (e.g., "Authentication Method", "Data Retention")
+         - `question`: Concise question text. Start with `**Recommended: [Option label]** — [1-2 sentence reasoning].` followed by a line break and the specific question from the ambiguity scan.
+         - `options`: Array of 2–5 options. Each option must have:
+           - `label`: Short, descriptive answer (e.g., "OAuth2/SSO", "90 days")
+           - `description`: Implications for the feature (e.g., "Enterprise-grade, requires identity provider")
+           - Set `recommended: true` on the best option
+         - `allowFreeformInput`: `true` — so user can provide a short custom answer (<=5 words)
+       - Example call:
+         ```json
+         {
+           "questions": [{
+             "header": "Data Retention Policy",
+             "question": "**Recommended: 1 year** — balances analytics needs with storage costs and LGPD compliance.\n\nHow long should user data be retained?",
+             "options": [
+               {"label": "90 days", "description": "Minimal storage, limited analytics capability"},
+               {"label": "1 year", "description": "Good balance for analytics and audit trails", "recommended": true},
+               {"label": "Indefinite", "description": "Never deleted. Requires LGPD/GDPR justification"}
+             ],
+             "allowFreeformInput": true
+           }]
+         }
+         ```
     - For short‑answer style (no meaningful discrete options):
-       - Provide your **suggested answer** based on best practices and context.
-       - Format as: `**Suggested:** <your proposed answer> - <brief reasoning>`
-       - Then output: `Format: Short answer (<=5 words). You can accept the suggestion by saying "yes" or "suggested", or provide your own answer.`
-    - After the user answers:
-       - If the user replies with "yes", "recommended", or "suggested", use your previously stated recommendation/suggestion as the answer.
-       - Otherwise, validate the answer maps to one option or fits the <=5 word constraint.
-       - If ambiguous, ask for a quick disambiguation (count still belongs to same question; do not advance).
+       - Call `vscode_askQuestions` with:
+         - `header`: Question topic
+         - `question`: `**Suggested: [your proposed answer]** — [brief reasoning].\n\nProvide your answer (max 5 words) or accept the suggestion.`
+         - Do NOT provide `options` — let user type freely
+         - `allowFreeformInput`: `true`
+    - After each `vscode_askQuestions` response:
+       - If the user selected a predefined option, use that option's label as the answer.
+       - If the user provided freeform text, use that as the answer. Validate it fits the <=5 word constraint for short-answer questions.
+       - If ambiguous, call `vscode_askQuestions` again for a quick disambiguation (count still belongs to same question; do not advance).
        - Once satisfactory, record it in working memory (do not yet write to disk) and move to the next queued question.
     - Stop asking further questions when:
        - All critical ambiguities resolved early (remaining queued items become unnecessary), OR
-       - User signals completion ("done", "good", "no more"), OR
+       - User skips a question (treat as "proceed with recommendation"), OR
        - You reach 5 asked questions.
     - Never reveal future queued questions in advance.
     - If no valid questions exist at start, immediately report no critical ambiguities.

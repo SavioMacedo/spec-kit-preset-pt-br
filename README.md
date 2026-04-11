@@ -6,7 +6,7 @@ Preset para o [Spec Kit](https://github.com/github/spec-kit) que traduz todos os
 
 Após a instalação, todos os artefatos gerados pelo Spec Kit — especificações, planos, listas de tarefas, checklists, a constituição e o arquivo de diretrizes do agente — são redigidos em Português Brasileiro. Identificadores de código, nomes de variáveis e palavras-chave técnicas permanecem em inglês.
 
-Os **commands core** (`/speckit.specify`, `/speckit.plan`, etc.) **não são sobrescritos**. Eles carregam os templates em runtime, portanto basta que os templates do preset tenham prioridade maior para que os artefatos saiam em pt-BR automaticamente.
+Além disso, os commands **`/speckit.specify`** e **`/speckit.clarify`** são sobrescritos para que **todas as perguntas ao usuário** sejam feitas via `vscode_askQuestions` — a interface nativa de perguntas do VS Code — em vez de tabelas markdown inline. Os demais commands core não são sobrescritos.
 
 ## Trade-off de manutenção
 
@@ -57,6 +57,15 @@ Após instalar o preset, use o Spec Kit normalmente. Todos os artefatos serão g
 | `tasks-template.md`         | Lista de tarefas                         |
 | `checklist-template.md`     | Checklist de qualidade                   |
 | `agent-file-template.md`    | Diretrizes de desenvolvimento do agente  |
+
+## Commands sobrescritos
+
+| Command           | Motivo do override                                     |
+| ----------------- | ------------------------------------------------------ |
+| `speckit.specify` | Perguntas de clarificação via `vscode_askQuestions`     |
+| `speckit.clarify` | Loop de perguntas sequenciais via `vscode_askQuestions` |
+
+> Os demais commands (`plan`, `tasks`, `checklist`, `implement`, etc.) **não são sobrescritos** — usam os templates PT-BR automaticamente via resolução "first match wins".
 
 ## Compatibilidade
 

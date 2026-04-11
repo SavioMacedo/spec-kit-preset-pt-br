@@ -3,8 +3,8 @@ schema_version: "1.0"
 preset:
   id: "pt-br"
   name: "Português Brasileiro"
-  version: "1.1.0"
-  description: "Traduz todos os artefatos do workflow Spec-Driven Development para Português Brasileiro (pt-BR). Sobrescreve os templates de conteúdo (spec, plan, tasks, checklist, constitution e agent-file) mantendo todos os commands core intactos para máxima compatibilidade."
+  version: "1.3.0"
+  description: "Traduz artefatos SDD para pt-BR e usa vscode_askQuestions nos commands specify e clarify."
   author: "SavioMacedo"
   repository: "https://github.com/SavioMacedo/spec-kit-preset-pt-br"
   license: "MIT"
@@ -49,6 +49,18 @@ provides:
       file: "templates/agent-file-template.md"
       description: "Template de diretrizes de desenvolvimento do agente em pt-BR"
       replaces: "agent-file-template"
+
+    - type: "command"
+      name: "speckit.specify"
+      file: "commands/speckit.specify.md"
+      description: "Command /speckit.specify com perguntas via vscode_askQuestions"
+      replaces: "speckit.specify"
+
+    - type: "command"
+      name: "speckit.clarify"
+      file: "commands/speckit.clarify.md"
+      description: "Command /speckit.clarify com perguntas via vscode_askQuestions"
+      replaces: "speckit.clarify"
 
 tags:
   - "language"

@@ -6,10 +6,16 @@ Preset para o [Spec Kit](https://github.com/github/spec-kit) que traduz todos os
 
 Este preset sobrescreve os **templates de conteúdo**: `constitution-template.md`, `spec-template.md`, `plan-template.md`, `tasks-template.md`, `checklist-template.md` e `agent-file-template.md`. Todos traduzidos para pt-BR.
 
-**Não sobrescrever commands** (`speckit.specify`, `speckit.plan`, etc.) é uma decisão arquitetural deliberada:
+Além disso, sobrescreve os **commands interativos** `speckit.specify` e `speckit.clarify` para que todas as perguntas ao usuário usem a ferramenta `vscode_askQuestions` (interface nativa do VS Code) em vez de tabelas markdown inline.
+
+Os demais commands core (`speckit.plan`, `speckit.tasks`, etc.) **não são sobrescritos**:
 - Commands do core contêm lógica complexa: extension hooks, branch numbering, quality validation loops, script execution, checklist generators e handoffs.
 - Sobrescrever um command significa possuir toda essa lógica — bug fixes e melhorias do upstream nunca chegam.
 - Os commands core carregam os templates em runtime. Como os templates do preset têm prioridade maior, os artefatos gerados saem em pt-BR sem precisar tocar nos commands.
+
+### Manutenção dos commands sobrescritos
+
+Os dois commands sobrescritos (`speckit.specify` e `speckit.clarify`) são baseados no upstream 0.6.1. Ao atualizar o Spec Kit, verificar se esses commands mudaram e incorporar as alterações mantendo a integração com `vscode_askQuestions`.
 
 ## Manutenção ao atualizar o Spec Kit
 
@@ -26,6 +32,9 @@ Para manter o preset atualizado:
 spec-kit-preset-pt-br/
 ├── .github/
 │   └── copilot-instructions.md   # este arquivo
+├── commands/
+│   ├── speckit.specify.md         # override: vscode_askQuestions
+│   └── speckit.clarify.md         # override: vscode_askQuestions
 ├── templates/
 │   ├── constitution-template.md  # constituição do projeto
 │   ├── spec-template.md          # especificação de feature
@@ -72,6 +81,6 @@ specify preset remove pt-br
 
 ## O que não fazer
 
-- Não adicionar `commands/` ao preset — ver "Estratégia central" acima.
+- Não sobrescrever commands além de `speckit.specify` e `speckit.clarify` — os demais não fazem perguntas interativas ao usuário.
 - Não amarrar `speckit_version` a versão exata — usar `>=0.1.0`.
 - Não renomear identificadores de código, nomes de variáveis ou palavras-chave técnicas nos templates — manter em inglês.
