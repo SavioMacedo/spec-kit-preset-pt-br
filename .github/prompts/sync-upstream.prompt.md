@@ -3,13 +3,6 @@ description: "Sincronizar o preset pt-BR com a versão mais recente do Spec Kit 
 name: "Sync Upstream Spec Kit"
 argument-hint: "Versão do Spec Kit (ex: 0.7.0) ou deixe vazio para usar main"
 agent: "agent"
-tools:
-  - fetch_webpage
-  - run_in_terminal
-  - read_file
-  - replace_string_in_file
-  - create_file
-  - vscode_askQuestions
 ---
 
 # Sincronizar Preset pt-BR com Upstream Spec Kit

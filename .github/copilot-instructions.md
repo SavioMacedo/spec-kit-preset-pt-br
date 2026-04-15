@@ -15,7 +15,7 @@ Os demais commands core (`speckit.plan`, `speckit.tasks`, etc.) **não são sobr
 
 ### Manutenção dos commands sobrescritos
 
-Os dois commands sobrescritos (`speckit.specify` e `speckit.clarify`) são baseados no upstream 0.6.1. Ao atualizar o Spec Kit, verificar se esses commands mudaram e incorporar as alterações mantendo a integração com `vscode_askQuestions`.
+Os dois commands sobrescritos (`speckit.specify` e `speckit.clarify`) são baseados no upstream 0.7.0. Ao atualizar o Spec Kit, verificar se esses commands mudaram e incorporar as alterações mantendo a integração com `vscode_askQuestions`.
 
 ## Manutenção ao atualizar o Spec Kit
 
