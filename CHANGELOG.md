@@ -1,9 +1,28 @@
 # Changelog
 
+<!-- markdownlint-disable MD024 -->
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.3.3] — 2026-04-15
+
+### Changed
+
+- `commands/speckit.specify.md` — prompts de handoff traduzidos para pt-BR, mantendo a lógica do upstream `0.7.1` e a customização com `vscode_askQuestions`.
+- `commands/speckit.clarify.md` — prompts de handoff traduzidos para pt-BR e loop interativo alinhado ao upstream `0.7.1`, preservando `vscode_askQuestions` e agora cobrindo explicitamente `skip` e sinais de término antecipado do usuário.
+- `preset.yml` — versão bumped para `1.3.3` (PATCH: sync efetiva dos commands para distribuição e atualização em outros repositórios).
+
+## [1.3.2] — 2026-04-15
+
+### Changed
+
+- **Sync upstream 0.7.1** — verificado que os 6 templates permanecem estruturalmente alinhados ao upstream e que `commands/speckit.specify.md` já contém o conteúdo do default preservando a customização com `vscode_askQuestions`.
+- `commands/speckit.clarify.md` — divergência pontual no encerramento do loop de perguntas revisada durante a sync; mantido o comportamento local de `skip` por decisão explícita.
+- `preset.yml` — versão bumped para 1.3.2 (PATCH: sync de upstream sem merge de conteúdo aplicado).
+- Referência de upstream atualizada de 0.7.0 para 0.7.1.
 
 ## [1.3.1] — 2026-04-15
 

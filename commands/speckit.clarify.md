@@ -3,11 +3,13 @@ description: Identificar áreas subespecificadas na spec da feature ativa, fazen
 handoffs:
   - label: Criar Plano Técnico
     agent: speckit.plan
-    prompt: Create a plan for the spec. I am building with...
+    prompt: Criar um plano para a spec. Estou construindo com...
 scripts:
    sh: scripts/bash/check-prerequisites.sh --json --paths-only
    ps: scripts/powershell/check-prerequisites.ps1 -Json -PathsOnly
 ---
+
+<!-- markdownlint-disable MD041 MD031 MD032 MD040 -->
 
 ## User Input
 
@@ -172,12 +174,15 @@ Execution steps:
          - `allowFreeformInput`: `true`
     - After each `vscode_askQuestions` response:
        - If the user selected a predefined option, use that option's label as the answer.
+       - If the user skipped the question, treat the recommended option or suggested answer for the current question as implicitly accepted.
        - If the user provided freeform text, use that as the answer. Validate it fits the <=5 word constraint for short-answer questions.
+       - If the freeform text is an early termination signal such as "done", "good", or "no more", stop the questioning loop without recording a new answer for the current question.
        - If ambiguous, call `vscode_askQuestions` again for a quick disambiguation (count still belongs to same question; do not advance).
        - Once satisfactory, record it in working memory (do not yet write to disk) and move to the next queued question.
     - Stop asking further questions when:
        - All critical ambiguities resolved early (remaining queued items become unnecessary), OR
        - User skips a question (treat as "proceed with recommendation"), OR
+       - User signals completion ("done", "good", "no more"), OR
        - You reach 5 asked questions.
     - Never reveal future queued questions in advance.
     - If no valid questions exist at start, immediately report no critical ambiguities.
@@ -233,7 +238,9 @@ Context for prioritization: {ARGS}
 ## Post-Execution Checks
 
 **Check for extension hooks (after clarification)**:
+
 Check if `.specify/extensions.yml` exists in the project root.
+
 - If it exists, read it and look for entries under the `hooks.after_clarify` key
 - If the YAML cannot be parsed or is invalid, skip hook checking silently and continue normally
 - Filter out hooks where `enabled` is explicitly `false`. Treat hooks without an `enabled` field as enabled by default.
@@ -242,7 +249,8 @@ Check if `.specify/extensions.yml` exists in the project root.
   - If the hook defines a non-empty `condition`, skip the hook and leave condition evaluation to the HookExecutor implementation
 - For each executable hook, output the following based on its `optional` flag:
   - **Optional hook** (`optional: true`):
-    ```
+
+    ```text
     ## Extension Hooks
 
     **Optional Hook**: {extension}
@@ -252,12 +260,15 @@ Check if `.specify/extensions.yml` exists in the project root.
     Prompt: {prompt}
     To execute: `/{command}`
     ```
+
   - **Mandatory hook** (`optional: false`):
-    ```
+
+    ```text
     ## Extension Hooks
 
     **Automatic Hook**: {extension}
     Executing: `/{command}`
     EXECUTE_COMMAND: {command}
     ```
+
 - If no hooks are registered or `.specify/extensions.yml` does not exist, skip silently

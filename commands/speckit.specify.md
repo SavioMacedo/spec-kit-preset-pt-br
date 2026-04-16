@@ -3,12 +3,14 @@ description: Criar ou atualizar a especificação de feature a partir de uma des
 handoffs:
   - label: Criar Plano Técnico
     agent: speckit.plan
-    prompt: Create a plan for the spec. I am building with...
+    prompt: Criar um plano para a spec. Estou construindo com...
   - label: Clarificar Requisitos da Spec
     agent: speckit.clarify
-    prompt: Clarify specification requirements
+    prompt: Clarificar os requisitos da especificação
     send: true
 ---
+
+<!-- markdownlint-disable MD041 MD031 MD032 MD040 -->
 
 ## User Input
 

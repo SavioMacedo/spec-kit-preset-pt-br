@@ -3,7 +3,7 @@ schema_version: "1.0"
 preset:
   id: "pt-br"
   name: "Português Brasileiro"
-  version: "1.3.1"
+  version: "1.3.3"
   description: "Traduz artefatos SDD para pt-BR e usa vscode_askQuestions nos commands specify e clarify."
   author: "SavioMacedo"
   repository: "https://github.com/SavioMacedo/spec-kit-preset-pt-br"
