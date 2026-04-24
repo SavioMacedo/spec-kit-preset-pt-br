@@ -17,6 +17,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `README.md` — documentado o uso deste repositório como catálogo e as adaptações recomendadas para evoluir para múltiplos presets no futuro.
 
+## [1.4.0] — 2026-04-23
+
+### Changed
+
+- **Sync upstream 0.8.0** — templates e commands com SHA idêntico ao 0.7.1; única mudança estrutural é a remoção de `agent-file-template.md` do upstream.
+- `preset.yml` — removida entrada `agent-file-template` de `provides.templates`; versão bumped para 1.4.0.
+
+### Removed
+
+- `templates/agent-file-template.md` — template removido do upstream entre 0.7.1 e 0.8.0. Arquivo e referência no preset removidos para alinhar ao upstream.
+
+### Notas da sync
+
+- **Versões cobertas**: 0.7.2, 0.7.3, 0.7.4, 0.7.5, 0.8.0.
+- **Templates inalterados** (5/5): `spec-template.md`, `plan-template.md`, `tasks-template.md`, `checklist-template.md`, `constitution-template.md` — SHA idêntico entre 0.7.1 e 0.8.0.
+- **Commands inalterados** (2/2): `speckit.specify.md`, `speckit.clarify.md` — upstream `specify.md` e `clarify.md` com SHA idêntico; customizações `vscode_askQuestions` preservadas.
+- **Mudança relevante no engine 0.8.0**: composition strategies (prepend, append, wrap) para presets — não requer alteração no preset.
+
 ## [1.3.3] — 2026-04-15
 
 ### Changed
