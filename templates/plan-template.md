@@ -3,7 +3,7 @@
 **Branch**: `[###-feature-name]` | **Data**: [DATE] | **Spec**: [link]
 **Entrada**: Especificação de feature de `/specs/[###-feature-name]/spec.md`
 
-**Nota**: Este template é preenchido pelo comando `/speckit.plan`. Consulte `.specify/templates/plan-template.md` para o workflow de execução.
+**Nota**: Este template é preenchido pelo comando `__SPECKIT_COMMAND_PLAN__`. Consulte `.specify/templates/plan-template.md` para o workflow de execução.
 
 ## Resumo
 
@@ -39,12 +39,12 @@
 
 ```text
 specs/[###-feature]/
-├── plan.md              # Este arquivo (saída do comando /speckit.plan)
-├── research.md          # Saída da Fase 0 (/speckit.plan)
-├── data-model.md        # Saída da Fase 1 (/speckit.plan)
-├── quickstart.md        # Saída da Fase 1 (/speckit.plan)
-├── contracts/           # Saída da Fase 1 (/speckit.plan)
-└── tasks.md             # Saída da Fase 2 (/speckit.tasks — NÃO criado pelo /speckit.plan)
+├── plan.md              # Este arquivo (saída do comando __SPECKIT_COMMAND_PLAN__)
+├── research.md          # Saída da Fase 0 (__SPECKIT_COMMAND_PLAN__)
+├── data-model.md        # Saída da Fase 1 (__SPECKIT_COMMAND_PLAN__)
+├── quickstart.md        # Saída da Fase 1 (__SPECKIT_COMMAND_PLAN__)
+├── contracts/           # Saída da Fase 1 (__SPECKIT_COMMAND_PLAN__)
+└── tasks.md             # Saída da Fase 2 (__SPECKIT_COMMAND_TASKS__ — NÃO criado pelo __SPECKIT_COMMAND_PLAN__)
 ```
 
 ### Código-Fonte (raiz do repositório)

@@ -4,13 +4,13 @@
 **Criado em**: [DATA]
 **Feature**: [Link para spec.md ou documentação relevante]
 
-**Nota**: Este checklist é gerado pelo comando `/speckit.checklist` com base no contexto e nos requisitos da feature.
+**Nota**: Este checklist é gerado pelo comando `__SPECKIT_COMMAND_CHECKLIST__` com base no contexto e nos requisitos da feature.
 
 <!-- 
   ============================================================================
   IMPORTANTE: Os itens abaixo são ITENS DE EXEMPLO apenas para fins ilustrativos.
   
-  O comando /speckit.checklist DEVE substituí-los por itens reais baseados em:
+  O comando __SPECKIT_COMMAND_CHECKLIST__ DEVE substituí-los por itens reais baseados em:
   - Solicitação específica de checklist do usuário
   - Requisitos da feature do spec.md
   - Contexto técnico do plan.md

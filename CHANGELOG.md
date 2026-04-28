@@ -9,13 +9,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-
-- `catalog.json` — catálogo customizado de presets expondo o preset `pt-br` para consumo via `specify preset catalog add`.
+## [1.4.1] — 2026-04-28
 
 ### Changed
 
-- `README.md` — documentado o uso deste repositório como catálogo e as adaptações recomendadas para evoluir para múltiplos presets no futuro.
+- **Sync upstream 0.8.1** — substituídas referências hardcoded a commands (`/speckit.*`) por tokens de placeholder (`__SPECKIT_COMMAND_*__`), alinhando ao PR upstream `fix: resolve command references per integration type (dot vs hyphen) (#2354)`.
+- `templates/checklist-template.md` — `/speckit.checklist` → `__SPECKIT_COMMAND_CHECKLIST__`.
+- `templates/plan-template.md` — `/speckit.plan` → `__SPECKIT_COMMAND_PLAN__`, `/speckit.tasks` → `__SPECKIT_COMMAND_TASKS__`.
+- `templates/tasks-template.md` — `/speckit.tasks` → `__SPECKIT_COMMAND_TASKS__`.
+- `commands/speckit.specify.md` — `/speckit.specify` → `__SPECKIT_COMMAND_SPECIFY__`, `/speckit.plan` → `__SPECKIT_COMMAND_PLAN__`, `/speckit.clarify` → `__SPECKIT_COMMAND_CLARIFY__`, `/speckit.tasks` → `__SPECKIT_COMMAND_TASKS__`.
+- `commands/speckit.clarify.md` — `/speckit.plan` → `__SPECKIT_COMMAND_PLAN__`, `/speckit.specify` → `__SPECKIT_COMMAND_SPECIFY__`, `/speckit.clarify` → `__SPECKIT_COMMAND_CLARIFY__`.
+- `catalog.json` — versão bumped para 1.4.1.
+
+### Notas da sync
+
+- **Versão coberta**: 0.8.1.
+- **Única mudança**: introdução de tokens `__SPECKIT_COMMAND_*__` substituindo referências hardcoded a commands em todos os templates e commands.
+- **Templates alterados** (3/5): `plan-template.md`, `tasks-template.md`, `checklist-template.md`. Templates `spec-template.md` e `constitution-template.md` inalterados.
+- **Commands alterados** (2/2): `speckit.specify.md`, `speckit.clarify.md` — customizações `vscode_askQuestions` e frontmatter pt-BR preservados.
 
 ## [1.4.0] — 2026-04-23
 

@@ -28,7 +28,7 @@ description: "Template de lista de tarefas para implementação de feature"
   ============================================================================
   IMPORTANTE: As tarefas abaixo são TAREFAS DE EXEMPLO apenas para fins ilustrativos.
 
-  O comando /speckit.tasks DEVE substituí-las por tarefas reais baseadas em:
+  O comando __SPECKIT_COMMAND_TASKS__ DEVE substituí-las por tarefas reais baseadas em:
   - Histórias de usuário do spec.md (com suas prioridades P1, P2, P3...)
   - Requisitos de feature do plan.md
   - Entidades do data-model.md
