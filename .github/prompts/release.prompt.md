@@ -3,12 +3,6 @@ description: "Criar release do preset no GitHub: valida consistência, atualiza 
 name: "Release Preset"
 argument-hint: "Tipo de bump (patch, minor, major) ou versão explícita (ex: 2.1.0)"
 agent: "agent"
-tools:
-  - mcp_github_get_latest_release
-  - mcp_github_list_tags
-  - mcp_github_push_files
-  - mcp_github_get_file_contents
-  - mcp_github_list_commits
 ---
 
 # Release do Preset spec-kit-preset-pt-br
