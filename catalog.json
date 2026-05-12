@@ -6,11 +6,11 @@
     "pt-br": {
       "name": "Português Brasileiro",
       "id": "pt-br",
-      "version": "2.0.0",
+      "version": "3.0.0",
       "description": "Traduz artefatos SDD para pt-BR via composição (wrap) e usa vscode_askQuestions nos commands specify e clarify.",
       "author": "SavioMacedo",
       "repository": "https://github.com/SavioMacedo/spec-kit-preset-pt-br",
-      "download_url": "https://github.com/SavioMacedo/spec-kit-preset-pt-br/archive/refs/tags/v2.0.0.zip",
+      "download_url": "https://github.com/SavioMacedo/spec-kit-preset-pt-br/archive/refs/tags/v3.0.0.zip",
       "homepage": "https://github.com/SavioMacedo/spec-kit-preset-pt-br",
       "documentation": "https://github.com/SavioMacedo/spec-kit-preset-pt-br/blob/main/README.md",
       "license": "MIT",
