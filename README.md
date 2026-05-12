@@ -4,13 +4,39 @@ Preset para o [Spec Kit](https://github.com/github/spec-kit) que traduz todos os
 
 ## O que este preset faz
 
-Após a instalação, todos os artefatos gerados pelo Spec Kit — especificações, planos, listas de tarefas, checklists, a constituição e o arquivo de diretrizes do agente — são redigidos em Português Brasileiro. Identificadores de código, nomes de variáveis e palavras-chave técnicas permanecem em inglês.
+Após a instalação, todos os artefatos gerados pelo Spec Kit — especificações, planos, listas de tarefas, checklists e a constituição — são redigidos em Português Brasileiro. Identificadores de código, nomes de variáveis e palavras-chave técnicas permanecem em inglês.
 
-Além disso, os commands **`/speckit.specify`** e **`/speckit.clarify`** são sobrescritos para que **todas as perguntas ao usuário** sejam feitas via `vscode_askQuestions` — a interface nativa de perguntas do VS Code — em vez de tabelas markdown inline. Os demais commands core não são sobrescritos.
+Além disso, os commands **`/speckit.specify`** e **`/speckit.clarify`** são enriquecidos para que **todas as perguntas ao usuário** sejam feitas via `vscode_askQuestions` — a interface nativa de perguntas do VS Code — em vez de tabelas markdown inline.
 
-## Trade-off de manutenção
+## Arquitetura: Composição via `strategy: wrap`
 
-O sistema usa "first match wins" — sem merge de templates. Quando o Spec Kit adicionar seções novas a um template em uma versão futura, o usuário não verá essas seções até que o preset seja atualizado. Monitore o [CHANGELOG do spec-kit](https://github.com/github/spec-kit/blob/main/CHANGELOG.md) e publique uma nova versão do preset com as seções traduzidas quando necessário.
+Desde a v2.0.0, o preset usa **composição** em vez de substituição. Todos os 7 arquivos usam `strategy: "wrap"` com o placeholder `{CORE_TEMPLATE}`:
+
+```text
+[Diretiva de idioma pt-BR + mapeamentos de termos]
+
+{CORE_TEMPLATE}  ← conteúdo upstream completo, inserido automaticamente
+
+[Reforço de tradução]
+```
+
+### Vantagens sobre a abordagem anterior (replace)
+
+| Aspecto | v1.x (replace) | v2.x (wrap) |
+| ------- | -------------- | ----------- |
+| Linhas mantidas no preset | ~2000 (7 cópias completas) | ~250 (7 wrappers) |
+| Manutenção por update do Spec Kit | Diff manual de 7 arquivos | **Nenhuma** |
+| Risco de dessincronia | Alto | **Zero** |
+| Novas seções upstream | Invisíveis até re-sync | **Aparecem automaticamente** |
+
+### Como funciona para commands
+
+Para `speckit.specify` e `speckit.clarify`:
+
+- **Frontmatter** (description, handoffs) em pt-BR → vence sobre o upstream
+- **scripts/agent_scripts** → herdados automaticamente do command core
+- **Override comportamental** → diretiva instrui o AI a usar `vscode_askQuestions` em vez de tabelas markdown
+- **Lógica do command** → flui inteira via `{CORE_TEMPLATE}` (hooks, validação, branch creation, etc.)
 
 ## Instalação
 
@@ -68,27 +94,26 @@ Após instalar o preset, use o Spec Kit normalmente. Todos os artefatos serão g
 
 ## Templates incluídos
 
-| Template                    | Descrição                                |
-| --------------------------- | ---------------------------------------- |
-| `constitution-template.md`  | Constituição do projeto                  |
-| `spec-template.md`          | Especificação de feature                 |
-| `plan-template.md`          | Plano de implementação                   |
-| `tasks-template.md`         | Lista de tarefas                         |
-| `checklist-template.md`     | Checklist de qualidade                   |
-| `agent-file-template.md`    | Diretrizes de desenvolvimento do agente  |
+| Template                    | Strategy | Descrição                                    |
+| --------------------------- | -------- | -------------------------------------------- |
+| `constitution-template.md`  | wrap     | Wrapper pt-BR para constituição do projeto   |
+| `spec-template.md`          | wrap     | Wrapper pt-BR para especificação de feature  |
+| `plan-template.md`          | wrap     | Wrapper pt-BR para plano de implementação    |
+| `tasks-template.md`         | wrap     | Wrapper pt-BR para lista de tarefas          |
+| `checklist-template.md`     | wrap     | Wrapper pt-BR para checklist de qualidade    |
 
-## Commands sobrescritos
+## Commands enriquecidos
 
-| Command             | Motivo do override                                      |
-| ------------------- | ------------------------------------------------------- |
-| `speckit.specify`   | Perguntas de clarificação via `vscode_askQuestions`     |
-| `speckit.clarify`   | Loop de perguntas sequenciais via `vscode_askQuestions` |
+| Command             | Strategy | Override                                            |
+| ------------------- | -------- | --------------------------------------------------- |
+| `speckit.specify`   | wrap     | Frontmatter pt-BR + `vscode_askQuestions`           |
+| `speckit.clarify`   | wrap     | Frontmatter pt-BR + `vscode_askQuestions` sequencial |
 
-> Os demais commands (`plan`, `tasks`, `checklist`, `implement`, etc.) **não são sobrescritos** — usam os templates PT-BR automaticamente via resolução "first match wins".
+> Os demais commands (`plan`, `tasks`, `checklist`, `implement`, etc.) usam os templates PT-BR automaticamente via composição — não precisam de wrapper.
 
 ## Este repositório como catálogo
 
-O arquivo `catalog.json` na raiz é o ponto de entrada do catálogo. Hoje ele publica um único preset, `pt-br`, apontando para o artefato versionado `v1.3.3`.
+O arquivo `catalog.json` na raiz é o ponto de entrada do catálogo. Hoje ele publica um único preset, `pt-br`, apontando para o artefato versionado `v2.0.0`.
 
 Isso permite dois modos de consumo:
 
@@ -108,9 +133,10 @@ Se você quiser que este mesmo repositório hospede vários presets no futuro, a
 
 ## Compatibilidade
 
-| Spec Kit  | Status        |
-| --------- | ------------- |
-| `>=0.1.0` | ✅ Compatível |
+| Spec Kit  | Status                                        |
+| --------- | --------------------------------------------- |
+| `>=0.8.0` | ✅ Compatível (composition strategies)         |
+| `<0.8.0`  | ❌ Não compatível (use preset v1.4.1 ou menor) |
 
 ## Contribuindo
 

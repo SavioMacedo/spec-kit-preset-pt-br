@@ -1,50 +1,44 @@
-# Constituição: [NOME_DO_PROJETO]
-<!-- Exemplo: Constituição do Spec, Constituição do TaskFlow, etc. -->
+<!-- PRESET pt-BR — strategy: wrap -->
+<!-- Este arquivo envelopa o template core do Spec Kit com diretivas de idioma. -->
+<!-- O placeholder {CORE_TEMPLATE} é substituído automaticamente pelo conteúdo upstream. -->
 
-## Princípios Fundamentais
+**INSTRUÇÃO OBRIGATÓRIA DE IDIOMA — Português Brasileiro (pt-BR)**
 
-### [NOME_PRINCÍPIO_1]
-<!-- Exemplo: I. Biblioteca em Primeiro Lugar -->
-[DESCRIÇÃO_PRINCÍPIO_1]
-<!-- Exemplo: Toda feature começa como biblioteca independente; Bibliotecas devem ser autocontidas, testáveis isoladamente e documentadas; Propósito claro obrigatório — sem bibliotecas apenas organizacionais -->
+Todo o conteúdo gerado a partir do template abaixo DEVE ser redigido em **Português Brasileiro (pt-BR)**.
+Identificadores de código, nomes de variáveis e palavras-chave técnicas permanecem em inglês.
 
-### [NOME_PRINCÍPIO_2]
-<!-- Exemplo: II. Interface de Linha de Comando -->
-[DESCRIÇÃO_PRINCÍPIO_2]
-<!-- Exemplo: Toda biblioteca expõe funcionalidade via CLI; Protocolo texto entrada/saída: stdin/args → stdout, erros → stderr; Suporte a formatos JSON + legível por humanos -->
+**Mapeamento de termos obrigatórios (aplicar ao gerar conteúdo)**:
 
-### [NOME_PRINCÍPIO_3]
-<!-- Exemplo: III. Test-First (NÃO NEGOCIÁVEL) -->
-[DESCRIÇÃO_PRINCÍPIO_3]
-<!-- Exemplo: TDD obrigatório: Testes escritos → Aprovados pelo usuário → Testes falham → Então implementar; Ciclo Red-Green-Refactor rigorosamente aplicado -->
+| Original (upstream) | pt-BR |
+|----------------------|-------|
+| Constitution | Constituição |
+| Core Principles | Princípios Fundamentais |
+| Governance | Governança |
+| Version | Versão |
+| Ratified | Ratificada em |
+| Last Amended | Última Alteração |
+| Example | Exemplo |
 
-### [NOME_PRINCÍPIO_4]
-<!-- Exemplo: IV. Testes de Integração -->
-[DESCRIÇÃO_PRINCÍPIO_4]
-<!-- Exemplo: Áreas que exigem testes de integração: Contratos de novas bibliotecas, Mudanças de contrato, Comunicação entre serviços, Schemas compartilhados -->
+**Mapeamento de placeholders**:
 
-### [NOME_PRINCÍPIO_5]
-<!-- Exemplo: V. Observabilidade, VI. Versionamento e Breaking Changes, VII. Simplicidade -->
-[DESCRIÇÃO_PRINCÍPIO_5]
-<!-- Exemplo: I/O textual garante depurabilidade; logging estruturado obrigatório; Ou: formato MAJOR.MINOR.BUILD; Ou: Começar simples, princípios YAGNI -->
+| Original | pt-BR |
+|----------|-------|
+| `[PROJECT_NAME]` | `[NOME_DO_PROJETO]` |
+| `[PRINCIPLE_NAME_N]` | `[NOME_PRINCÍPIO_N]` |
+| `[PRINCIPLE_DESCRIPTION_N]` | `[DESCRIÇÃO_PRINCÍPIO_N]` |
+| `[SECTION_NAME_N]` | `[NOME_SEÇÃO_N]` |
+| `[SECTION_CONTENT_N]` | `[CONTEÚDO_SEÇÃO_N]` |
+| `[GOVERNANCE_RULES]` | `[REGRAS_DE_GOVERNANÇA]` |
+| `[CONSTITUTION_VERSION]` | `[VERSÃO_CONSTITUIÇÃO]` |
+| `[RATIFICATION_DATE]` | `[DATA_RATIFICAÇÃO]` |
+| `[LAST_AMENDED_DATE]` | `[DATA_ÚLTIMA_ALTERAÇÃO]` |
 
-## [NOME_SEÇÃO_2]
-<!-- Exemplo: Restrições Adicionais, Requisitos de Segurança, Padrões de Desempenho, etc. -->
+**Instruções para exemplos em comentários HTML**: Traduzir todos os exemplos dentro de `<!-- Exemplo: ... -->` para pt-BR.
 
-[CONTEÚDO_SEÇÃO_2]
-<!-- Exemplo: Requisitos de stack tecnológico, padrões de conformidade, políticas de deploy, etc. -->
+---
 
-## [NOME_SEÇÃO_3]
-<!-- Exemplo: Fluxo de Desenvolvimento, Processo de Revisão, Quality Gates, etc. -->
+{CORE_TEMPLATE}
 
-[CONTEÚDO_SEÇÃO_3]
-<!-- Exemplo: Requisitos de code review, quality gates de testes, processo de aprovação de deploy, etc. -->
+---
 
-## Governança
-<!-- Exemplo: A Constituição prevalece sobre todas as outras práticas; Alterações exigem documentação, aprovação e plano de migração -->
-
-[REGRAS_DE_GOVERNANÇA]
-<!-- Exemplo: Todos os PRs/revisões devem verificar conformidade; Complexidade deve ser justificada; Use [ARQUIVO_DE_ORIENTAÇÃO] como guia de desenvolvimento em runtime -->
-
-**Versão**: [VERSÃO_CONSTITUIÇÃO] | **Ratificada em**: [DATA_RATIFICAÇÃO] | **Última Alteração**: [DATA_ÚLTIMA_ALTERAÇÃO]
-<!-- Exemplo: Versão: 2.1.1 | Ratificada em: 2025-06-13 | Última Alteração: 2025-07-16 -->
+<!-- REFORÇO: Todo o conteúdo acima DEVE ter sido gerado em Português Brasileiro (pt-BR). Verifique que headings, placeholders, exemplos em comentários e texto instrucional estão traduzidos. -->

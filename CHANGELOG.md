@@ -9,6 +9,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] — 2026-05-11
+
+### Changed
+
+- **BREAKING: Migração de `strategy: replace` para `strategy: wrap`** — todos os 7 arquivos do preset (5 templates + 2 commands) agora usam composição `wrap` com `{CORE_TEMPLATE}` em vez de substituir o conteúdo upstream inteiro.
+- **Manutenção zero**: templates e commands upstream fluem automaticamente via `{CORE_TEMPLATE}`. Atualizações do Spec Kit não exigem mais re-sync manual dos 7 arquivos.
+- `preset.yml` — `speckit_version` atualizado de `>=0.1.0` para `>=0.8.0` (composition strategies requerem v0.8.0+). Tag `composition` adicionada. Campo `replaces` removido (não necessário com `strategy: wrap`).
+- `templates/constitution-template.md` — substituído por wrapper com diretiva de idioma pt-BR + tabela de mapeamento de termos + `{CORE_TEMPLATE}`.
+- `templates/spec-template.md` — substituído por wrapper com mapeamentos de headings, prefixos (FR→RF, SC→CS, US→HU) e placeholders + `{CORE_TEMPLATE}`.
+- `templates/plan-template.md` — substituído por wrapper com mapeamentos de termos técnicos e labels de estrutura + `{CORE_TEMPLATE}`.
+- `templates/tasks-template.md` — substituído por wrapper com mapeamentos de fases, labels e prefixos (US→HU) + `{CORE_TEMPLATE}`.
+- `templates/checklist-template.md` — substituído por wrapper com mapeamentos de termos de checklist + `{CORE_TEMPLATE}`.
+- `commands/speckit.specify.md` — substituído por wrapper com frontmatter pt-BR (description, handoffs) + override de interação `vscode_askQuestions` + `{CORE_TEMPLATE}`. Scripts herdados automaticamente do upstream.
+- `commands/speckit.clarify.md` — substituído por wrapper com frontmatter pt-BR + override sequencial `vscode_askQuestions` + `{CORE_TEMPLATE}`. Scripts herdados automaticamente do upstream.
+
+### Notas da migração
+
+- **Versão coberta**: upstream 0.8.8 (última disponível).
+- **Redução de ~2000 linhas para ~250 linhas** mantidas no preset.
+- **Composição**: o Spec Kit resolve `{CORE_TEMPLATE}` em runtime, inserindo o conteúdo upstream completo. O wrapper adiciona diretivas de tradução antes e reforço depois.
+- **Frontmatter de commands**: o layer mais prioritário (preset) vence. `scripts` e `agent_scripts` são herdados do upstream automaticamente quando ausentes no wrapper.
+- **Compatibilidade**: requer Spec Kit >=0.8.0 (composition strategies implementadas desde esta versão).
+
 ## [1.4.1] — 2026-04-28
 
 ### Changed
