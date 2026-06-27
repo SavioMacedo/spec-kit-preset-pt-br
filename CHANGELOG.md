@@ -9,6 +9,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.0] — 2026-06-27
+
+### Added
+
+- `commands/speckit.analyze.md` — novo wrapper pt-BR (diretiva de idioma) para o command `analyze`, garantindo que o relatório de análise (achados, severidades, métricas, próximas ações e a pergunta de remediação) saia em pt-BR. Registrado em `preset.yml`. É um wrap **apenas de idioma** (sem override de `vscode_askQuestions`); `scripts` herdados do core automaticamente. O preset passa a prover **8 arquivos** (5 templates + 3 commands).
+
+### Changed
+
+- **Docs**: corrigidas referências de versão `v2.0.0` → `v3.0.0` em `README.md` (3 ocorrências: intro da arquitetura, tabela comparativa e seção de catálogo) e `.github/copilot-instructions.md` — a migração para `strategy: wrap` foi lançada na **3.0.0** (não existe marco/tag 2.0.0).
+- `README.md` — comando de instalação primário corrigido de `specify preset add <url>` (posicional) para `specify preset add --from <url>` versionado, conforme a CLI atual (`--from` para URL) e o requisito de publishing 0.11.8; contagens "7 arquivos" → "8 arquivos".
+- `catalog.json` — adicionado campo `sha256` do artefato da release (`v3.1.0.zip`) para verificação de integridade antes da instalação (recurso do upstream 0.11.7).
+- `templates/tasks-template.md` — removido frontmatter redundante (`description`/`strategy`); a strategy é declarada no `preset.yml` e os outros 4 templates não usam frontmatter. Padronização de consistência.
+- **Validação upstream 0.11.9** — tabelas de mapeamento de termos revisadas contra os templates atuais do upstream; alinhada a redação de headings que evoluiu desde 0.8.8:
+  - `plan-template.md`: `Key Dependencies` → `Primary Dependencies`, `Scale/Size` → `Scale/Scope`, `REMOVE IF NOT USING` → `REMOVE IF UNUSED`.
+  - `tasks-template.md`: `Objective` → `Goal`, `Dependencies and Execution Order` → `Dependencies & Execution Order`, `Cross-Phase Dependencies` → `Phase Dependencies`, `Cross-Story Dependencies` → `User Story Dependencies`, `Within Each Story` → `Within Each User Story`, `Parallelism Opportunities/Example` → `Parallel Opportunities/Example`.
+- Compatibilidade com upstream 0.11.9 confirmada sem mudanças estruturais. Verificado no código do resolver (`src/specify_cli/presets`) que `scripts`/`agent_scripts` são herdados do core quando ausentes no wrapper — logo `clarify`/`analyze` não precisam declará-los. Os commands `/speckit.converge` e `/speckit.taskstoissues` não exigem wrapper (não apresentam perguntas interativas em tabela markdown).
+
 ## [3.0.0] — 2026-05-11
 
 ### Changed

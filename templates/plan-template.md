@@ -18,14 +18,14 @@ Identificadores de código, nomes de variáveis e palavras-chave técnicas perma
 | Summary | Resumo |
 | Technical Context | Contexto Técnico |
 | Language/Version | Linguagem/Versão |
-| Key Dependencies | Dependências Principais |
+| Primary Dependencies | Dependências Principais |
 | Storage | Armazenamento |
 | Testing | Testes |
 | Target Platform | Plataforma-Alvo |
 | Project Type | Tipo de Projeto |
 | Performance Goals | Metas de Desempenho |
 | Constraints | Restrições |
-| Scale/Size | Escala/Porte |
+| Scale/Scope | Escala/Porte |
 | Constitution Check | Verificação da Constituição |
 | Project Structure | Estrutura do Projeto |
 | Documentation | Documentação |
@@ -48,7 +48,7 @@ Identificadores de código, nomes de variáveis e palavras-chave técnicas perma
 **Instruções adicionais**:
 - Comentários HTML instrucionais (`<!-- ... -->`) devem ser traduzidos para pt-BR
 - Labels dentro de árvores de diretório (`# Este arquivo`, `# Saída da Fase 0`, etc.) devem ser traduzidos
-- Texto "REMOVE IF NOT USING" → "REMOVER SE NÃO USAR"
+- Texto "REMOVE IF UNUSED" → "REMOVER SE NÃO USAR"
 
 ---
 

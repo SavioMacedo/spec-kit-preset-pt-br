@@ -3,7 +3,7 @@ schema_version: "1.0"
 preset:
   id: "pt-br"
   name: "Português Brasileiro"
-  version: "3.0.0"
+  version: "3.1.0"
   description: "Traduz artefatos SDD para pt-BR e usa vscode_askQuestions nos commands specify e clarify."
   author: "SavioMacedo"
   repository: "https://github.com/SavioMacedo/spec-kit-preset-pt-br"
@@ -55,6 +55,12 @@ provides:
       file: "commands/speckit.clarify.md"
       strategy: "wrap"
       description: "Wrapper pt-BR + vscode_askQuestions para command clarify"
+
+    - type: "command"
+      name: "speckit.analyze"
+      file: "commands/speckit.analyze.md"
+      strategy: "wrap"
+      description: "Wrapper pt-BR (diretiva de idioma) para command analyze"
 
 tags:
   - "language"

@@ -1,8 +1,3 @@
----
-description: "Wrapper pt-BR para template de lista de tarefas"
-strategy: wrap
----
-
 <!-- PRESET pt-BR — strategy: wrap -->
 <!-- Este arquivo envelopa o template core do Spec Kit com diretivas de idioma. -->
 
@@ -26,17 +21,17 @@ Identificadores de código, nomes de variáveis e palavras-chave técnicas perma
 | Setup | Setup |
 | Foundation / Foundational | Fundacional |
 | User Story | História de Usuário |
-| Objective | Objetivo |
+| Goal | Objetivo |
 | Independent Testing | Teste Independente |
 | Implementation | Implementação |
 | Checkpoint | Checkpoint |
 | Polish & Cross-Cutting | Polimento e Aspectos Transversais |
-| Dependencies and Execution Order | Dependências e Ordem de Execução |
-| Cross-Phase Dependencies | Dependências entre Fases |
-| Cross-Story Dependencies | Dependências entre Histórias de Usuário |
-| Within Each Story | Dentro de Cada História de Usuário |
-| Parallelism Opportunities | Oportunidades de Paralelismo |
-| Parallelism Example | Exemplo de Paralelismo |
+| Dependencies & Execution Order | Dependências e Ordem de Execução |
+| Phase Dependencies | Dependências entre Fases |
+| User Story Dependencies | Dependências entre Histórias de Usuário |
+| Within Each User Story | Dentro de Cada História de Usuário |
+| Parallel Opportunities | Oportunidades de Paralelismo |
+| Parallel Example | Exemplo de Paralelismo |
 | Implementation Strategy | Estratégia de Implementação |
 | MVP First | MVP Primeiro |
 | Incremental Delivery | Entrega Incremental |

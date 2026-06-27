@@ -4,7 +4,7 @@ Preset para o [Spec Kit](https://github.com/github/spec-kit) que traduz todos os
 
 ## Estratégia central — Composição via `wrap`
 
-Desde a v2.0.0, este preset usa `strategy: "wrap"` (composição) em vez de substituição (`replace`). Cada arquivo contém:
+Desde a v3.0.0, este preset usa `strategy: "wrap"` (composição) em vez de substituição (`replace`). Cada arquivo contém:
 
 1. **Diretiva de idioma** — instrui o AI a gerar todo output em pt-BR
 2. **Tabela de mapeamento de termos** — headings, prefixos e placeholders traduzidos
@@ -29,6 +29,8 @@ Os commands `speckit.specify` e `speckit.clarify` usam wrap com dois propósitos
 2. **Override comportamental** — instrui o AI a usar `vscode_askQuestions` em vez de tabelas markdown inline
 3. **Scripts herdados** — `scripts` e `agent_scripts` são omitidos do wrapper, sendo herdados automaticamente do command core upstream
 
+O command `speckit.analyze` usa wrap **apenas para idioma** (sem override de comportamento): o relatório de análise não vem de um template, então o wrapper injeta a diretiva pt-BR para garantir o output traduzido. `scripts` herdados do core.
+
 Os demais commands core (`speckit.plan`, `speckit.tasks`, etc.) **não precisam de wrapper** — carregam os templates em runtime, e como os templates do preset têm prioridade maior, os artefatos gerados saem em pt-BR automaticamente.
 
 ## Manutenção ao atualizar o Spec Kit
@@ -49,7 +51,8 @@ spec-kit-preset-pt-br/
 │   └── copilot-instructions.md   # este arquivo
 ├── commands/
 │   ├── speckit.specify.md         # wrap: frontmatter pt-BR + vscode_askQuestions
-│   └── speckit.clarify.md         # wrap: frontmatter pt-BR + vscode_askQuestions
+│   ├── speckit.clarify.md         # wrap: frontmatter pt-BR + vscode_askQuestions
+│   └── speckit.analyze.md         # wrap: diretiva de idioma pt-BR (sem override)
 ├── templates/
 │   ├── constitution-template.md  # wrap: diretiva pt-BR + {CORE_TEMPLATE}
 │   ├── spec-template.md          # wrap: diretiva pt-BR + {CORE_TEMPLATE}
@@ -99,5 +102,5 @@ specify preset remove pt-br
 
 - Não usar `strategy: replace` — manter `wrap` para todos os arquivos.
 - Não adicionar `scripts` ou `agent_scripts` nos commands — devem ser herdados do upstream.
-- Não envelopar commands além de `speckit.specify` e `speckit.clarify` — os demais não fazem perguntas interativas.
+- Não adicionar override de `vscode_askQuestions` em commands além de `speckit.specify` e `speckit.clarify` — só esses dois fazem perguntas interativas em tabela markdown. (`speckit.analyze` é envelopado apenas para idioma, sem override de comportamento.)
 - Não renomear identificadores de código, nomes de variáveis ou palavras-chave técnicas nos templates — manter em inglês.

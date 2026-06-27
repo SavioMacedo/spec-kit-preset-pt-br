@@ -10,7 +10,7 @@ Além disso, os commands **`/speckit.specify`** e **`/speckit.clarify`** são en
 
 ## Arquitetura: Composição via `strategy: wrap`
 
-Desde a v2.0.0, o preset usa **composição** em vez de substituição. Todos os 7 arquivos usam `strategy: "wrap"` com o placeholder `{CORE_TEMPLATE}`:
+Desde a v3.0.0, o preset usa **composição** em vez de substituição. Todos os 8 arquivos usam `strategy: "wrap"` com o placeholder `{CORE_TEMPLATE}`:
 
 ```text
 [Diretiva de idioma pt-BR + mapeamentos de termos]
@@ -22,10 +22,10 @@ Desde a v2.0.0, o preset usa **composição** em vez de substituição. Todos os
 
 ### Vantagens sobre a abordagem anterior (replace)
 
-| Aspecto | v1.x (replace) | v2.x (wrap) |
+| Aspecto | v1.x (replace) | v3.x (wrap) |
 | ------- | -------------- | ----------- |
-| Linhas mantidas no preset | ~2000 (7 cópias completas) | ~250 (7 wrappers) |
-| Manutenção por update do Spec Kit | Diff manual de 7 arquivos | **Nenhuma** |
+| Linhas mantidas no preset | ~2000 (8 cópias completas) | ~300 (8 wrappers) |
+| Manutenção por update do Spec Kit | Diff manual de 8 arquivos | **Nenhuma** |
 | Risco de dessincronia | Alto | **Zero** |
 | Novas seções upstream | Invisíveis até re-sync | **Aparecem automaticamente** |
 
@@ -38,11 +38,13 @@ Para `speckit.specify` e `speckit.clarify`:
 - **Override comportamental** → diretiva instrui o AI a usar `vscode_askQuestions` em vez de tabelas markdown
 - **Lógica do command** → flui inteira via `{CORE_TEMPLATE}` (hooks, validação, branch creation, etc.)
 
+Para `speckit.analyze`, o wrap é **apenas de idioma** (sem override de comportamento): o relatório de análise não vem de um template, então o wrapper injeta a diretiva pt-BR para garantir o output traduzido. `scripts` são herdados do core.
+
 ## Instalação
 
 ```bash
-# Adicionar o preset ao seu projeto
-specify preset add https://github.com/SavioMacedo/spec-kit-preset-pt-br
+# Adicionar o preset ao seu projeto (instalação direta pela URL do artefato versionado)
+specify preset add --from https://github.com/SavioMacedo/spec-kit-preset-pt-br/archive/refs/tags/v3.1.0.zip
 ```
 
 ### Instalação via catálogo customizado
@@ -108,12 +110,13 @@ Após instalar o preset, use o Spec Kit normalmente. Todos os artefatos serão g
 | ------------------- | -------- | --------------------------------------------------- |
 | `speckit.specify`   | wrap     | Frontmatter pt-BR + `vscode_askQuestions`           |
 | `speckit.clarify`   | wrap     | Frontmatter pt-BR + `vscode_askQuestions` sequencial |
+| `speckit.analyze`   | wrap     | Diretiva de idioma pt-BR (relatório de análise) — sem override de comportamento |
 
-> Os demais commands (`plan`, `tasks`, `checklist`, `implement`, etc.) usam os templates PT-BR automaticamente via composição — não precisam de wrapper.
+> Os demais commands (`plan`, `tasks`, `checklist`, `implement`, etc.) usam os templates PT-BR automaticamente via composição — não precisam de wrapper. O `analyze` é envelopado só para idioma porque seu relatório não vem de um template.
 
 ## Este repositório como catálogo
 
-O arquivo `catalog.json` na raiz é o ponto de entrada do catálogo. Hoje ele publica um único preset, `pt-br`, apontando para o artefato versionado `v2.0.0`.
+O arquivo `catalog.json` na raiz é o ponto de entrada do catálogo. Hoje ele publica um único preset, `pt-br`, apontando para o artefato versionado `v3.1.0`.
 
 Isso permite dois modos de consumo:
 
